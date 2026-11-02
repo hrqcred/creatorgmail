@@ -1,11 +1,4 @@
 {
-  "buildCommand": "",
-  "outputDirectory": "public",
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "@vercel/node@3.0.0"
-    }
-  },
   "rewrites": [
     { "source": "/api/status/:orderId", "destination": "/api/status/[orderId]" }
   ]
