@@ -26,7 +26,7 @@ async function getToken() {
 }
 
 function randomName() {
-  const f = ['João', 'Maria', 'Pedro', 'Ana', 'Lucas', 'Julia', 'Carlos', 'Fernanda', 'Rafael', 'Camila'];
+  const f = ['Joao', 'Maria', 'Pedro', 'Ana', 'Lucas', 'Julia', 'Carlos', 'Fernanda', 'Rafael', 'Camila'];
   const l = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Lima', 'Ferreira', 'Costa', 'Pereira', 'Almeida', 'Rocha'];
   return `${f[Math.floor(Math.random() * f.length)]} ${l[Math.floor(Math.random() * l.length)]}`;
 }
@@ -67,9 +67,10 @@ module.exports = async function handler(req, res) {
     });
 
     const pixData = await pixRes.json();
+    console.log('SyncPay response:', pixRes.status, JSON.stringify(pixData));
     if (!pixRes.ok || !pixData.pix_code) {
-      console.error('SyncPay erro:', pixData);
-      return res.status(500).json({ error: pixData.message || 'Erro ao gerar PIX' });
+      const errorDetail = pixData.errors ? JSON.stringify(pixData.errors) : pixData.message;
+      return res.status(500).json({ error: errorDetail || 'Erro ao gerar PIX' });
     }
 
     orders.set(pixData.identifier, { email, cpf: cleanCpf, status: 'pending', createdAt: new Date() });
