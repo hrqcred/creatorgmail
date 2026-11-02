@@ -1,4 +1,6 @@
 {
+  "buildCommand": "",
+  "outputDirectory": "public",
   "rewrites": [
     { "source": "/api/create-pix", "destination": "/api/create-pix" },
     { "source": "/api/webhook", "destination": "/api/webhook" },
