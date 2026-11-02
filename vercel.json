@@ -1,5 +1,13 @@
 {
-  "rewrites": [
-    { "source": "/api/status/:orderId", "destination": "/api/status/[orderId]" }
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/create-pix", "dest": "/api/create-pix.js" },
+    { "src": "/api/webhook", "dest": "/api/webhook.js" },
+    { "src": "/api/status/(.*)", "dest": "/api/status/[orderId].js?orderId=$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
